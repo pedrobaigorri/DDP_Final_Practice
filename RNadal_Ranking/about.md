@@ -14,6 +14,9 @@ The prediction is performed using a Logistic Regression model using the historic
 
 Enjoy it! (& Vamos Rafa!!)
 
+* Code can be found in the following repository:
+https://github.com/pedrobaigorri/DDP_Final_Practice/tree/master/RNadal_Ranking
+
 @paab
 
 
