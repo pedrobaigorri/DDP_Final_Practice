@@ -1,0 +1,34 @@
+---
+title: "Plotly Practice"
+author: "Pedro A. Alonso Baigorri"
+date: "30 de abril de 2018"
+output:
+  ioslides_presentation: default
+  slidy_presentation: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Plotly Practice
+
+- Practice developed on `r Sys.Date()`
+
+- The picture shows an interactive chart developed with plotly
+
+
+```{r echo = FALSE, message=FALSE, warning=FALSE}
+
+library(plotly)
+plot_ly(mtcars, x = mtcars$wt, y=mtcars$mpg, mode="markers", color=as.factor(mtcars$cyl)) %>%
+  layout(
+    title = "Mtcars MPG Versus WT coloured by CYL",
+    xaxis = list(title = "WT"),
+    yaxis = list(title = "MPG")
+      
+    )
+
+```
+
+

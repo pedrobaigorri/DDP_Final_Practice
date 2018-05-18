@@ -1,0 +1,33 @@
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Rafa Nadal Grand Slams
+
+Practice developed on `r Sys.Date()`
+
+
+The following map shows where Rafa Nadal has won their 16 Grand Slams:
+
+<img src="rafa.jpg" alt="Rafa Nadal" style="width: 200px;"/>
+
+
+```{r echo = FALSE, message=FALSE, warning=FALSE}
+library(leaflet)
+
+grand_slams_rafa <- data.frame(city = c("Roland Garros", "Open Australia", "Wimbledon", "Open USA"), 
+                               wins = c(10, 1, 2, 3), lat = c(48.84, -37.8, 51.43, 40.74 ), lng = c(2.24, 144.9, -0.2, -73.84  ))
+
+grand_slams_rafa %>%
+leaflet() %>%
+addTiles() %>%
+addMarkers(label = paste(grand_slams_rafa$city, ":", grand_slams_rafa$wins) ) %>%    
+addCircles(weight = 1, radius = sqrt(grand_slams_rafa$wins) * 100000, 
+           popup = grand_slams_rafa$wins, color = c("red", "blue", "yellow", "green")) %>%
+addLegend("topright", colors = c("red", "blue", "yellow", "green"), 
+    labels = grand_slams_rafa$city,
+    title = "Grand Slams",
+    opacity = 1)
+
+```
