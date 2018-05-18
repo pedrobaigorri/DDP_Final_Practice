@@ -1,0 +1,78 @@
+Rafa Nadal Ranking  Predictor
+========================================================
+author: Pedro A. Alonso Baigorri
+date: 17/05/2018
+width: 1440
+height: 900
+font-family: 'Calibri'
+
+Objective
+========================================================
+
+As everybody knows, Rafa Nadal it's probably the best tennis player ever (at least in clay).
+But, despite of his brilliant career, he got to finish the year as Number #1 in the ranking of the ATP only in 4 years (2008, 2010, 2013, 2017).
+
+Although becoming Number #1 depends not only of personal performance but also what the competitors does, I would like to try if analyzing the historical data of won tournaments, we can predict what will be happen this year through an app that can simulate a certain number of tournaments won.
+
+The application designed, will provide then 2 different tabs with the following functionality:
+
+* A tab showing the analysis of the ranking position versus the different type of achievements in the year
+* A tab with a simulator of victories to predict the ranking position on this year.
+
+Dataset
+========================================================
+
+I created a dataset with the historical achievements of Rafa Nadal with the official data provided by ATP through:
+http://www.atpworldtour.com/es/players/rafael-nadal/n409/titles-and-finals
+
+Here you can see this dataset:
+
+```{r}
+file <- "RNadal_Ranking/data/rnadal_statistics.csv"
+rnadal_data <- read.table(file, header = TRUE, sep = ";")
+head(rnadal_data)
+```
+
+Tournament Analysis
+========================================================
+
+Then in the tournament analysis tab, the user can select the type of achievement to analyze the relationship between this KPI and the ranking posistion at the end of the year.
+
+As an example the following plot shows Number of Grand Slams Won
+
+```{r, echo=FALSE, fig.height = 10, fig.width = 20}
+library(ggplot2)
+
+rnadal_data$year <- as.factor(rnadal_data$year)
+rnadal_data$Ranking <- ifelse(rnadal_data$n1_eoy == 1, "Number 1", "Other position")
+
+rnadal_data$rest_won_tournaments <- rnadal_data$total_won_tournaments - rnadal_data$won_grand_slams
+rnadal_data$rest_finals <- rnadal_data$total_finals - rnadal_data$finals_grand_slams
+
+
+yy <- rnadal_data$won_grand_slams
+yy_text <- "Grand Slams won"
+
+chart <- ggplot(data = rnadal_data, aes(x=year, y=yy, fill=Ranking)) +
+geom_bar(stat="identity") + 
+geom_text(label = yy, vjust = -0.5) +
+ggtitle("Relationships Vs Ranking and the KPI Selected on the left panel") +
+theme(legend.position="right") + 
+xlab("") +
+ylab(yy_text)
+
+chart
+```
+
+Ranking Predictor
+========================================================
+
+In the  Ranking Predictor tool, I train a glm model to try to predict the ranking position on this year, according to the simulation of victories that the user can input through the control panel.
+
+As an example when the user select 2 or more Grand Slams Won the predictor gives the following result:
+
+```{r, echo=FALSE}
+print ("Yes !!, I'm the number one !!")
+
+```
+![Rafa Nadal Number 1](RNadal_Ranking/images/img_n1.jpg)

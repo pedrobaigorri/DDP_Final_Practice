@@ -5,9 +5,9 @@ account: paab
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 336820
-bundleId: 1375286
+bundleId: 1375292
 url: https://paab.shinyapps.io/RNadal_Ranking/
-when: 1526403875.80653
+when: 1526404131.99548
 asMultiple: FALSE
 asStatic: FALSE
 ignoredFiles: .RData
